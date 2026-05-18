@@ -1,16 +1,17 @@
-# RuangSense 🌡️💨
-> **Awarded "The Best Overall" - UKM ITAMA 2026**
 
-**[ ID ]** RuangSense adalah platform pemantauan kualitas ruangan berbasis IoT (Internet of Things) yang dirancang untuk memantau suhu, kelembaban, dan kadar gas secara real-time. Proyek ini mengintegrasikan perangkat keras ESP32 dengan ekosistem Laravel untuk memberikan visibilitas data yang akurat dan sistem peringatan dini.
+# RuangSense-v1 ❄️
 
-**[ EN ]** RuangSense is an IoT (Internet of Things)-based indoor quality monitoring platform designed to monitor temperature, humidity, and gas levels in real time. The project integrates ESP32 hardware with the Laravel ecosystem to provide accurate data visibility and an early warning system.
+RuangSense adalah platform pemantauan kualitas ruangan berbasis IoT (Internet of Things) yang dirancang untuk memantau suhu, kelembaban, dan kadar gas secara *real-time*. Proyek ini mengintegrasikan perangkat keras ESP32 dengan ekosistem Laravel untuk memberikan visibilitas data yang akurat dan sistem peringatan dini.
+
+---
 
 ## 🏆 Achievement
-**[ ID ]** Proyek ini berhasil meraih penghargaan **"The Best Overall"** dalam ajang kompetisi karya mahasiswa teknik tingkat kampus tahun 2026.
+Proyek ini berhasil meraih penghargaan **"The Best Overall"** dalam ajang kompetisi karya mahasiswa teknik tingkat kampus tahun 2026.
 
-**[ EN ]** This project successfully won the **"The Best Overall"** award in the 2026 campus-level engineering student work competition.
+---
 
 ## 🛠️ Tech Stack
+
 ### Backend & Dashboard
 - **Framework:** Laravel 12
 - **Database:** MySQL
@@ -18,34 +19,44 @@
 - **Frontend:** Tailwind CSS & Chart.js (untuk visualisasi data)
 
 ### Hardware & Connectivity
-- **Controller:** ESP32 (Transitioning to MicroPython)
+- **Controller:** ESP32 (MicroPython environment)
 - **Sensors:** DHT22 (Temperature & Humidity), MQ-2 (Gas/Smoke)
-- **Communication:** REST API with Custom Bearer Authentication
+- **Communication:** REST API via HTTP POST
 
-## ✨ Key Features
-- **Real-time Monitoring:** 
-**[ ID ]** Visualisasi data sensor dalam bentuk grafik interaktif menggunakan Pusher.
-**[ EN ]** Visualization of sensor data in the form of interactive graphs using Pusher.
-- **Device Authentication:**
-**[ ID ]** Sistem keamanan menggunakan `Bearer Device ID` pada header request untuk memvalidasi setiap perangkat yang mengirim data.
-**[ EN ]** The security system uses the `Bearer Device ID` in the request header to validate each device sending data.
+---
+
+## ✨ Key Features & Security
+
+- **Real-time Monitoring:** Visualisasi data sensor dalam bentuk grafik interaktif menggunakan Pusher.
+
+- **Device Authentication & API Security:**
+  Sistem keamanan menggunakan `Bearer Device ID` pada *header request* untuk memvalidasi setiap perangkat yang mengirim data.
+
+- **Data Privacy & Architecture:**
+  Implementasi proteksi **IDOR** dan penggunaan **Hashids** untuk menyembunyikan ID asli pada database, serta pemisahan struktur *routing* statis dan dinamis secara ketat.
+
 - **Early Warning System:**
-**[ ID ]** Klasifikasi status kondisi udara menjadi **Normal**, **Warning**, dan **Danger** yang memicu alarm pada sisi hardware.
-**[ EN ]** Classification of air condition status into **Normal**, **Warning**, and **Danger** which triggers an alarm on the hardware side.
+  Klasifikasi status kondisi udara menjadi **Normal**, **Warning**, dan **Danger** yang memicu alarm pada sisi *hardware*.
+
 - **Sensor History:**
-**[ ID ]** Pencatatan log data sensor ke dalam database untuk analisis jangka panjang.
-**[ EN ]** Logging sensor data into a database for long-term analysis.
+  Pencatatan log data sensor ke dalam database untuk analisis jangka panjang.
+
+---
 
 ## 📡 API Overview
-**[ ID ]** Perangkat ESP32 mengirimkan data ke backend melalui endpoint POST dengan format berikut:
-**[ EN ]** The ESP32 device sends data to the backend via the POST endpoint in the following format:
 
-**Endpoint:** `POST /api/sensor-log/store`
+Perangkat ESP32 mengirimkan data ke *backend* melalui *endpoint* POST dengan format berikut:
+
+**Endpoint:** `POST /api/sensor-log/store`  
 **Headers:**
-- `Authorization: Bearer <YOUR_DEVICE_ID>`
-- `Content-Type: application/json`
+```http
+Authorization: Bearer <YOUR_DEVICE_ID>
+Content-Type: application/json
+Accept: application/json
+```
 
 **Payload:**
+
 ```json
 {
     "temperature": 29.0,
@@ -56,3 +67,55 @@
     "gas_status": "normal"
 }
 ```
+
+---
+
+## 🚀 Installation & Setup (Local Development)
+
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di mesin lokal Anda:
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/yourusername/ruangsense-v1.git
+cd ruangsense
+```
+
+
+2. **Install PHP dependencies:**
+```bash
+composer install
+```
+
+
+3. **Install NPM dependencies & build assets:**
+```bash
+npm install
+npm run build
+```
+
+
+4. **Environment setup:**
+Copy `.env.example` to `.env` and configure your database and Pusher credentials.
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+
+5. **Run migrations:**
+```bash
+php artisan migrate
+```
+
+
+6. **Start the local server:**
+```bash
+php artisan serve
+```
+
+---
+
+![Laravel](https://img.shields.io/badge/laravel_12-FF0000?logo=laravel&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-000000?logo=javascript&logoColor=%23F7DF1E)
+![ESP32](https://img.shields.io/badge/ESP32-E1251B?logo=espressif&logoColor=white) ![Pusher](https://img.shields.io/badge/Pusher-300D4F?logo=pusher&logoColor=white)
+
+**© 2026 RuangSense-v2 - Muhammad Azka Faza Muttaqin. All rights reserved.**
